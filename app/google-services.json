@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1018234963853",
+    "firebase_url": "https://elegant-rock-208509.firebaseio.com",
+    "project_id": "elegant-rock-208509",
+    "storage_bucket": "elegant-rock-208509.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018234963853:android:16f7261a3f691f5c",
+        "android_client_info": {
+          "package_name": "com.apps.moi.streaming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018234963853-g8kqnfb8dfaph1hppe7ep417baoq10c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhUA7xKKfW9orZvf4oBYfpUaAYyjgbGho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/surface_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="@android:color/black" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/holo_green_light"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:padding="0dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:foregroundGravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_guardar"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableLeft="@android:drawable/ic_media_previous"
+                android:drawablePadding="8dp"
+                android:text="Volver a configuracion"
+                android:textColor="@android:color/black"
+                android:onClick="goToHomeActivity"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <net.majorkernelpanic.streaming.gl.SurfaceView
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center" />
+
+    <SurfaceView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/surfaceView1"/>
+
+</FrameLayout>
