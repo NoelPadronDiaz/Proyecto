@@ -1,0 +1,181 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Android Video Streaming  
+   
+    link(href='https://vjs.zencdn.net/5.19/video-js.css', rel='stylesheet')
+    link(rel='stylesheet', type='text/css', href='css/style.css')
+  body
+    
+    // Header
+    #header
+        .container
+            h1 Android Video Streaming
+    
+    #contenedor
+        #listado
+
+        #container
+            .android_id(name='android_id')
+                .video_preview(id="video_preview")
+                    .title
+                        h1#titulo
+                    |                 
+                    #videazo
+                    .btn_group
+                        .title_comandos
+                            h2 Comandos de control
+                        .div_botones
+                            button#move_w.myButton(onclick='w()') w
+                            |             
+                            button#move_a.myButton(onclick='a()') a
+                            |             
+                            button#move_s.myButton(onclick='s()') s
+                            |             
+                            button#move_d.myButton(onclick='d()') d
+
+
+
+    
+    //SCRIPTS
+    script(src='js/jquery-1.9.1.min.js', type='text/javascript')
+    script(src='https://vjs.zencdn.net/5.19/video.js')
+    script(src='/socket.io/socket.io.js')
+    script(type='text/javascript').
+        
+        var socket = io();
+        socket.emit('load_page')
+
+        //manage commands
+        //$(function () {
+            var dev_enabled = '';
+
+            socket.on('data_streaming', function (data) {
+                var array_dispositivos = data['dispositivos'];
+                console.log("num: " + data['num_streamings'])
+                console.log("arr length: " + array_dispositivos.length)
+
+                //Quitar el streaming que se esta visualizando si ese dispositivo ya no esta streameando
+                var encontrado = true;
+                for(var i=0; i<array_dispositivos.length; i++){
+                    if(dev_enabled == array_dispositivos[i][0]){
+                        encontrado = true;
+                        break;
+                    }
+                    else{
+                        encontrado = false;
+                    }
+                }
+
+                //Limpiar contenido del listado
+                while (document.getElementById('listado').hasChildNodes()) {
+                    document.getElementById('listado').removeChild(document.getElementById('listado').lastChild);
+                }
+        
+                //ocultar el div del streaming
+                if(data['num_streamings'] == 0 || encontrado == false){
+                    document.getElementById('video_preview').style.display = 'none';
+                }
+                    
+
+                //Añadir elementos al listado
+                if(data['num_streamings'] > 0 ){
+                    var ul = document.createElement('ul');
+                    document.getElementById('listado').appendChild( ul );
+
+                    console.log("tamaño array: "+array_dispositivos.length)
+                    for(var i=0; i<array_dispositivos.length; i++){
+
+                        var id      = array_dispositivos[i][0];
+                        var name    = array_dispositivos[i][1];
+                        var url     = array_dispositivos[i][2];
+
+                        var li           = document.createElement('li');
+                        li.id            = id;
+                        li.innerHTML     = name;
+                        li.style.display = 'inline';
+
+                        var button                = document.createElement('button');
+                        button.id                 = id;
+                        button.innerHTML          = 'Online';
+                        button.classList.add('btn_live');
+                        button.onclick = (function (name, id, url) {
+                            return function () {
+                                setStreaming(name, id, url)
+                            };
+                        })(name, id, url);
+
+                        ul.appendChild( button );
+                        ul.appendChild( li );
+                        ul.appendChild(document.createElement("br"));
+                        ul.appendChild(document.createElement("br"));
+                    }
+                }
+            });
+
+
+            function setStreaming(dev, id, url){
+                dev_enabled = id;
+
+                //borrar contenido del div del streaming
+                document.getElementById('videazo').innerHTML = '';
+
+
+                //poner id al div android_id y contenido al titulo
+                document.getElementById('container').childNodes[0].setAttribute('id', id);
+                document.getElementById('titulo').innerHTML = dev;
+
+
+                var video = document.createElement('video');
+                video.id            = 'player';
+                video.classList.add('video-js');
+                video.controls      = '';
+                video.preload       ='auto';
+                video.width         ='640'; 
+                video.height        ='400'; 
+                video.poster        =''; 
+                video.setAttribute('controls', '');
+                video.setAttribute('data-setup', '{}');
+
+
+                var source  = document.createElement('source');
+                source.src  = 'rtmp://'+ url;
+                source.type = 'rtmp/mp4';
+
+
+                var video_script = document.createElement("script");
+                video_script.src = "https://vjs.zencdn.net/5.19/video.js";
+
+                var jquery = document.createElement("script");
+                jquery.src = "js/jquery-1.9.1.min.js";
+
+
+                document.getElementById('container').appendChild(jquery);
+                document.getElementById('container').appendChild(video_script);
+                
+                document.getElementById('videazo').appendChild(video);
+                document.getElementById('player').appendChild(source);
+                
+
+                //mostrar div de streaming
+                document.getElementById('video_preview').style.display = 'block';
+            }
+        //});
+
+
+        function w(){
+            socket.emit('send_mensaje', {'mensaje': 'w'})
+        }
+
+        function a(){
+            socket.emit('send_mensaje', {'mensaje': 'a'})
+        }
+
+        function s(){
+            socket.emit('send_mensaje', {'mensaje': 's'})
+        }
+
+        function d(){
+            socket.emit('send_mensaje', {'mensaje': 'd'})
+        }
