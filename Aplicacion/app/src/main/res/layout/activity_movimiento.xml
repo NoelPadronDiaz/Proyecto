@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Movimiento">
 
+    <SurfaceView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/surfaceView1"/>
+
 </android.support.constraint.ConstraintLayout>

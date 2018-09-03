@@ -90,12 +90,16 @@ html
                         var id      = array_dispositivos[i][0];
                         var name    = array_dispositivos[i][1];
                         var url     = array_dispositivos[i][2];
+                        var motion  = array_dispositivos[i][3];
 
-                        var li           = document.createElement('li');
-                        li.id            = id;
-                        li.innerHTML     = name;
-                        li.style.display = 'inline';
+                        //element li
+                        var li              = document.createElement('li');
+                        li.id               = id;
+                        li.innerHTML        = name;
+                        li.style.display    = 'inline';
+                        li.style.marginLeft = '30px';
 
+                        //element button online
                         var button                = document.createElement('button');
                         button.id                 = id;
                         button.innerHTML          = 'Online';
@@ -105,12 +109,39 @@ html
                                 setStreaming(name, id, url)
                             };
                         })(name, id, url);
+                        
+                        //element button motion
+                        var motionbutton                = document.createElement('button');
+                        motionbutton.id                 = "motionbuttonid";
+                        motionbutton.style.visibility   = 'hidden';
+                        motionbutton.innerHTML          = '<img id= "imageid" src="/images/motion.jpg" />';
+                        motionbutton.onclick = (function () {
+                            return function () {
+                                motionbutton.style.visibility = 'hidden';
+                            };
+                        })();
 
+                        //appends html
                         ul.appendChild( button );
+                        ul.appendChild( motionbutton );
                         ul.appendChild( li );
                         ul.appendChild(document.createElement("br"));
                         ul.appendChild(document.createElement("br"));
                     }
+                }
+            });
+
+
+            //Capturando cambios en la variable motion 
+            socket.on('changing_motion', function (data) {
+                var motion = data['value'];
+
+                if(motion == 1){
+                    document.getElementById('motionbuttonid').style.visibility   = 'visible';
+                }
+
+                if(motion == 0){
+                    document.getElementById('motionbuttonid').style.visibility   = 'hidden';
                 }
             });
 

@@ -118,26 +118,26 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
 
         setContentView(R.layout.activity_main);
 
-        motionDetector = new MotionDetector(this, (android.view.SurfaceView) findViewById(R.id.surfaceView1));
-        Log.d("motion","antes");
-        motionDetector.setMotionDetectorCallback(new MotionDetectorCallback() {
-            @Override
-            public void onMotionDetected() {
-                Log.d("motion","si");
-                contador++;
-                if(contador >= 2){
-                    database.setDeviceData(device_name, device_id, AppConfig.STREAM_URL,1);
-                    database.setMotionGeneral(1);
-                }
-            }
-
-            @Override
-            public void onTooDark() {
-                //txtStatus.setText("Too dark here");
-                Toast.makeText(MainActivity.this, "Oscuro", Toast.LENGTH_SHORT).show();
-            }
-        });
-        Log.d("motion","sale");
+//        motionDetector = new MotionDetector(this, (android.view.SurfaceView) findViewById(R.id.surfaceView1));
+//        Log.d("motion","antes");
+//        motionDetector.setMotionDetectorCallback(new MotionDetectorCallback() {
+//            @Override
+//            public void onMotionDetected() {
+//                Log.d("motion","si");
+//                contador++;
+//                if(contador >= 2){
+//                    database.setDeviceData(device_name, device_id, AppConfig.STREAM_URL,1);
+//                    database.setMotionGeneral(1);
+//                }
+//            }
+//
+//            @Override
+//            public void onTooDark() {
+//                //txtStatus.setText("Too dark here");
+//                Toast.makeText(MainActivity.this, "Oscuro", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        Log.d("motion","sale");
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surface);
         mSurfaceView.getHolder().addCallback(this);
@@ -152,7 +152,7 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
     protected void onResume() {
         super.onResume();
 
-        motionDetector.onResume();
+//        motionDetector.onResume();
 
         // Start camera preview
         mSession.startPreview();
@@ -177,7 +177,7 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
         mClient.stopStream();
         //toggleStreaming();
         //database.getAndModifyNumStreaming("-");
-        motionDetector.onPause();
+        //motionDetector.onPause();
     }
 
 

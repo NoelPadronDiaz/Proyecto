@@ -44,6 +44,7 @@ admin.initializeApp({
 var db      = admin.database();
 var ref     = db.ref('num_streamings');
 var refr    = db.ref('/');
+var refdev  = db.ref('devices_data/');
 
 
 // -- WEBSOCKET
@@ -78,6 +79,7 @@ function manageDatabase(){
                     device_name = android_id.val().deviceName;
                     url         = android_id.val().url;
                     motion      = android_id.val().motion;
+
                     arr = [device_id, device_name, url, motion];
                     array_dispostivos.push(arr);
                 });
@@ -90,7 +92,7 @@ function manageDatabase(){
         });
 
         refr.on("child_removed", function(snapshot) {
-            cont--;
+            cont --;
             console.log("socket_io.emit 2")
             snapshot.forEach(function (android_id) {
                 device_id   = android_id.val().deviceId;
@@ -104,6 +106,19 @@ function manageDatabase(){
             if(socket_io != undefined){
                 console.log("socket_io.emit 2")
                 socket_io.emit('data_streaming',{'num_streamings': numstreaming, 'dispositivos': array_dispostivos});
+            }
+        });
+    });
+
+
+    refdev.on("value", function(snapshot) {
+        snapshot.forEach(function (android_id) {
+            if(android_id.val().motion == 1){
+                if(socket_io != undefined)      socket_io.emit('changing_motion',{'value': 1});
+
+            }else{
+                if(socket_io != undefined)      socket_io.emit('changing_motion',{'value': 0});
+
             }
         });
     });

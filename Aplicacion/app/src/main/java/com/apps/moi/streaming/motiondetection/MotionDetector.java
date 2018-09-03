@@ -143,7 +143,7 @@ public class MotionDetector {
         try {
             if (Camera.getNumberOfCameras() >= 2) {
                 //if you want to open front facing camera use this line
-                c = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+                c = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
             } else {
                 c = Camera.open();
             }
@@ -236,7 +236,7 @@ public class MotionDetector {
         if (worker != null) worker.stopDetection();
     }
 
-    private void releaseCamera(){
+    public void releaseCamera(){
         if (mCamera != null){
             mCamera.setPreviewCallback(null);
             if (inPreview) mCamera.stopPreview();

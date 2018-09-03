@@ -57,7 +57,7 @@ public class Home extends Activity {
     public void goToStreaming(View view){
 
         if( validateForm() ){
-            Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
+            Intent main_activity = new Intent(getApplicationContext(), Movimiento.class);
             main_activity.putExtra("url",url.getText().toString() );
             main_activity.putExtra("user",user.getText().toString() );
             main_activity.putExtra("password",password.getText().toString() );

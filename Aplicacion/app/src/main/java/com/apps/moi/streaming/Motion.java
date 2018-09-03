@@ -27,25 +27,25 @@ public class Motion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motion);
 
-        txtStatus = (TextView) findViewById(R.id.txtStatus);
+        //txtStatus = (TextView) findViewById(R.id.txtStatus);
         //Intent i = new Intent(this, Main2Activity.class);
 
-        final ImageButton btn = (ImageButton) findViewById(R.id.button);
+        /*final ImageButton btn = (ImageButton) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(Motion.this, "Bien",Toast.LENGTH_SHORT);
                 //Intent intent = new Intent(v.getContext(), Main2Activity.class);
                 //startActivityForResult(intent, 0);
             }
-        });
+        });*/
 
-        motionDetector = new MotionDetector(this, (SurfaceView) findViewById(R.id.surfaceView));
+        motionDetector = new MotionDetector(this, (SurfaceView) findViewById(R.id.surfaceView1));
         motionDetector.setMotionDetectorCallback(new MotionDetectorCallback() {
             @Override
             public void onMotionDetected() {
                 Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 v.vibrate(80);
-                btn.setVisibility(View.VISIBLE);
+                //btn.setVisibility(View.VISIBLE);
                 txtStatus.setVisibility(View.INVISIBLE);
             }
 

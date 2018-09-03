@@ -43,9 +43,4 @@
         android:layout_marginTop="40dp"
         android:layout_gravity="center" />
 
-    <SurfaceView
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:id="@+id/surfaceView1"/>
-
 </FrameLayout>

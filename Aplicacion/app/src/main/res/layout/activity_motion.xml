@@ -10,36 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.apps.moi.streaming.Motion">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/txtStatus" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/buttona"
-        android:src="@mipmap/images"
-        android:visibility="invisible"/>
-
     <SurfaceView
         android:layout_width="1dp"
         android:layout_height="1dp"
-        android:id="@+id/surfaceView" />
-
-    <ImageButton
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        app:srcCompat="@mipmap/images"
-        android:visibility="invisible"/>
+        android:id="@+id/surfaceView1"/>
 
 </RelativeLayout>
