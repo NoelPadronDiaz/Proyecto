@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
     private DatabaseFirebase database;
     private MotionDetector motionDetector;
     private int contador;
+    private DeviceData deviceData;
 
     String device_name;
     String device_id;
@@ -69,6 +70,7 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
         database    = new DatabaseFirebase(this);
         device_name = Build.MANUFACTURER + " " + Build.MODEL;
         device_id   = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        deviceData = new DeviceData();
 
 
         //OBTENER LOS DATOS PARA EL STREAMING y ESTABLECERLOS EN EL APPCONFIG
@@ -124,7 +126,8 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
                 Log.d("motion","si");
                 contador++;
                 if(contador >= 2){
-                    database.setMotion(1);
+                    database.setDeviceData(device_name, device_id, AppConfig.STREAM_URL,1);
+                    database.setMotionGeneral(1);
                 }
             }
 
@@ -306,7 +309,8 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
 
         // Sumamos uno al contador de streamings al conectarse por rtsp
         database.getAndModifyNumStreaming("+");
-        database.setDeviceData(device_name, device_id, AppConfig.STREAM_URL);
+
+        database.setDeviceData(device_name, device_id, AppConfig.STREAM_URL,0);
     }
 
 
@@ -340,7 +344,8 @@ public class MainActivity extends Activity implements RtspClient.Callback, Sessi
         mSession.release();
         mSurfaceView.getHolder().removeCallback(this);
         database.getAndModifyNumStreaming("-");
-        database.setMotion(0);
+        deviceData.motion = 0;
+        database.setMotionGeneral(0);
 
         super.onDestroy();
     }

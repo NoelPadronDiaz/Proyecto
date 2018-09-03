@@ -5,6 +5,7 @@ import android.util.Log;
 public class DeviceData {
 
     private String device_id, device_name, url;
+    public int motion;
 
     public DeviceData() {
     }
@@ -33,4 +34,8 @@ public class DeviceData {
     public String getUrl() {
         return url;
     }
+
+    public void setMotion(int motion) {this.motion = motion;}
+
+    public int getMotion() {return motion;}
 }

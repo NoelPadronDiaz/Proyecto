@@ -25,20 +25,21 @@ public class DatabaseFirebase implements Serializable {
         database = FirebaseDatabase.getInstance();
     }
 
-    public void setMotion(int num){
+    public void setMotionGeneral(int num){
         DatabaseReference myRef = database.getReference("motion");
 
         myRef.setValue(num);
     }
 
 
-    public void setDeviceData(String device_name, String device_id, String url){
+    public void setDeviceData(String device_name, String device_id, String url, int mo){
         DatabaseReference myRef = database.getReference("devices_data");
 
         DeviceData data = new DeviceData();
         data.setDeviceId(device_id);
         data.setDeviceName(device_name);
         data.setUrl(url);
+        data.setMotion(mo);
         myRef.child(device_id).setValue(data);
     }
 

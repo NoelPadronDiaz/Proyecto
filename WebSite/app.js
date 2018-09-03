@@ -9,6 +9,7 @@ var express      = require('express'),
     device_id    = null,
     device_name  = null,
     url          = null,
+    motion       = null,
     numstreaming = 0,
     bodyParser = require('body-parser'),
     socket_io;
@@ -76,7 +77,8 @@ function manageDatabase(){
                     device_id   = android_id.val().deviceId;
                     device_name = android_id.val().deviceName;
                     url         = android_id.val().url;
-                    arr = [device_id, device_name, url];
+                    motion      = android_id.val().motion;
+                    arr = [device_id, device_name, url, motion];
                     array_dispostivos.push(arr);
                 });
 
@@ -94,7 +96,8 @@ function manageDatabase(){
                 device_id   = android_id.val().deviceId;
                 device_name = android_id.val().deviceName;
                 url         = android_id.val().url;
-                arr = [device_id, device_name, url];
+                motion      = android_id.val().motion;
+                arr = [device_id, device_name, url, motion];
                 array_dispostivos.push(arr);
             });
 
@@ -104,4 +107,5 @@ function manageDatabase(){
             }
         });
     });
+
 }
